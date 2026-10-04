@@ -1,6 +1,8 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import { GraduationCap, Award, Calendar } from 'lucide-react';
+import SpotlightCard from './SpotlightCard';
 
 interface TimelineItemProps {
   title: string;
@@ -20,7 +22,13 @@ export default function TimelineItem({
   type = 'education',
 }: TimelineItemProps) {
   return (
-    <div className="relative flex gap-4 sm:gap-6 group">
+    <motion.div
+      initial={{ opacity: 0, x: -30 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="relative flex gap-4 sm:gap-6 group"
+    >
       {/* Vertical timeline track line */}
       {!isLast && (
         <div className="absolute top-10 left-5 sm:left-6 -bottom-6 w-0.5 bg-gradient-to-b from-[#00ff88]/40 via-slate-700 to-transparent group-hover:from-[#00ff88] transition-colors" />
@@ -35,9 +43,12 @@ export default function TimelineItem({
         )}
       </div>
 
-      {/* Card Content */}
+      {/* Card Content with Spotlight */}
       <div className="flex-1 pb-8">
-        <div className="p-5 sm:p-6 rounded-2xl glass-panel transition-all duration-300 hover:border-slate-600 hover:shadow-lg">
+        <SpotlightCard
+          spotlightColor="rgba(0, 255, 136, 0.1)"
+          className="p-5 sm:p-6 transition-all duration-300 hover:border-slate-600 hover:shadow-xl"
+        >
           <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
             <h3 className="text-lg sm:text-xl font-heading font-bold text-white dark:text-white light:text-slate-900 group-hover:text-[#00ff88] transition-colors">
               {title}
@@ -50,7 +61,7 @@ export default function TimelineItem({
             )}
           </div>
 
-          <p className="text-sm font-medium text-slate-300 dark:text-slate-300 light:text-slate-700 mb-2">
+          <p className="text-sm font-medium text-slate-300 dark:text-slate-300 light:text-slate-700 mb-2 font-sans">
             {institution}
           </p>
 
@@ -59,8 +70,8 @@ export default function TimelineItem({
               Status: {status}
             </span>
           )}
-        </div>
+        </SpotlightCard>
       </div>
-    </div>
+    </motion.div>
   );
 }

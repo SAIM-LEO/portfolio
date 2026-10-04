@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Send, CheckCircle, AlertCircle, Loader2, Mail } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Send, CheckCircle, AlertCircle, Loader2, Mail, Sparkles } from 'lucide-react';
+import MagneticButton from './MagneticButton';
 import { portfolioData } from '@/data/portfolio';
 
 export default function ContactForm() {
@@ -28,7 +30,6 @@ export default function ContactForm() {
     setErrorMessage('');
 
     try {
-      // Using Formspree endpoint or fallback
       const response = await fetch('https://formspree.io/f/mqkenwkk', {
         method: 'POST',
         headers: {
@@ -51,158 +52,153 @@ export default function ContactForm() {
         throw new Error(data.error || 'Failed to submit form.');
       }
     } catch (err: any) {
-      // Even if endpoint limit is hit, offer easy mailto
       setStatus('error');
       setErrorMessage(err.message || 'Transmission failed. Please use direct email or WhatsApp.');
     }
   };
 
-  const mailtoLink = `mailto:${portfolioData.personal.email}?subject=${encodeURIComponent(
-    formData.subject || 'Portfolio Inquiry from Website'
-  )}&body=${encodeURIComponent(
-    `Hi Saim,\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-  )}`;
-
   return (
-    <div className="p-6 sm:p-8 rounded-2xl glass-panel relative overflow-hidden">
-      {/* Top border highlight */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00ff88]/60 to-transparent" />
+    <div className="relative p-[1.5px] rounded-3xl overflow-hidden animated-gradient-border shadow-2xl">
+      <div className="relative p-6 sm:p-8 rounded-[22px] bg-[#050814]/95 backdrop-blur-xl">
+        {/* Top subtle highlight */}
+        <div className="absolute top-0 left-6 right-6 h-[1.5px] bg-gradient-to-r from-transparent via-[#00ff88]/50 to-transparent" />
 
-      <h3 className="text-xl sm:text-2xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">
-        Transmit an Inquiry
-      </h3>
-      <p className="text-sm text-slate-400 dark:text-slate-400 light:text-slate-600 mb-6">
-        Have a project, security audit, or Amazon marketplace operational role? Drop a message directly below.
-      </p>
-
-      {status === 'success' ? (
-        <div className="p-6 rounded-xl bg-emerald-950/40 border border-[#00ff88]/40 text-center space-y-3">
-          <div className="w-12 h-12 rounded-full bg-[#00ff88]/20 border border-[#00ff88] mx-auto flex items-center justify-center text-[#00ff88]">
-            <CheckCircle className="w-6 h-6" />
-          </div>
-          <h4 className="text-lg font-heading font-bold text-white">Transmission Successful</h4>
-          <p className="text-sm text-slate-300">
-            Thank you! Your message has been received. Saim will respond to your provided email shortly.
-          </p>
-          <button
-            onClick={() => setStatus('idle')}
-            className="mt-3 px-4 py-2 rounded-lg text-xs font-mono font-medium border border-slate-700 bg-slate-800 text-slate-200 hover:text-white"
-          >
-            Send Another Message
-          </button>
+        <div className="flex items-center gap-2 mb-1 text-xs font-mono text-[#00ff88]">
+          <Sparkles className="w-3.5 h-3.5" />
+          <span>ENCRYPTED INQUIRY FORM</span>
         </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="name" className="block text-xs font-mono text-slate-300 mb-1.5">
-                YOUR NAME *
-              </label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                required
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="e.g. John Doe"
-                className="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 dark:bg-slate-900/80 light:bg-slate-50 border border-slate-700/80 dark:border-slate-700/80 light:border-slate-300 text-white dark:text-white light:text-slate-900 text-sm focus:outline-none focus:border-[#00ff88] focus:ring-1 focus:ring-[#00ff88] transition-colors"
-              />
+        <h3 className="text-xl sm:text-2xl font-heading font-bold text-white dark:text-white light:text-slate-900 mb-2">
+          Transmit an Inquiry
+        </h3>
+        <p className="text-sm text-slate-400 dark:text-slate-400 light:text-slate-600 mb-6 font-sans">
+          Have a project, security audit, or Amazon marketplace operational role? Drop a message directly below.
+        </p>
+
+        {status === 'success' ? (
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+            className="p-8 rounded-2xl bg-emerald-950/40 border border-[#00ff88]/40 text-center space-y-4 shadow-[0_0_30px_rgba(0,255,136,0.2)]"
+          >
+            <div className="w-14 h-14 rounded-full bg-[#00ff88]/20 border-2 border-[#00ff88] mx-auto flex items-center justify-center text-[#00ff88] shadow-[0_0_20px_#00ff88]">
+              <CheckCircle className="w-8 h-8 animate-pulse" />
             </div>
-
-            <div>
-              <label htmlFor="email" className="block text-xs font-mono text-slate-300 mb-1.5">
-                YOUR EMAIL *
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="e.g. john@example.com"
-                className="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 dark:bg-slate-900/80 light:bg-slate-50 border border-slate-700/80 dark:border-slate-700/80 light:border-slate-300 text-white dark:text-white light:text-slate-900 text-sm focus:outline-none focus:border-[#00ff88] focus:ring-1 focus:ring-[#00ff88] transition-colors"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label htmlFor="subject" className="block text-xs font-mono text-slate-300 mb-1.5">
-              SUBJECT / INQUIRY TYPE
-            </label>
-            <input
-              id="subject"
-              name="subject"
-              type="text"
-              value={formData.subject}
-              onChange={handleChange}
-              placeholder="e.g. Web Development / AppSec / Amazon Ops"
-              className="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 dark:bg-slate-900/80 light:bg-slate-50 border border-slate-700/80 dark:border-slate-700/80 light:border-slate-300 text-white dark:text-white light:text-slate-900 text-sm focus:outline-none focus:border-[#00ff88] focus:ring-1 focus:ring-[#00ff88] transition-colors"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="message" className="block text-xs font-mono text-slate-300 mb-1.5">
-              MESSAGE *
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              required
-              rows={4}
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Write your message here..."
-              className="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 dark:bg-slate-900/80 light:bg-slate-50 border border-slate-700/80 dark:border-slate-700/80 light:border-slate-300 text-white dark:text-white light:text-slate-900 text-sm focus:outline-none focus:border-[#00ff88] focus:ring-1 focus:ring-[#00ff88] transition-colors resize-none"
-            />
-          </div>
-
-          {status === 'error' && (
-            <div className="p-3 rounded-lg bg-red-950/40 border border-red-500/40 flex items-center justify-between gap-3 text-xs text-red-300">
-              <div className="flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
-                <span>{errorMessage}</span>
-              </div>
-              <a
-                href={mailtoLink}
-                className="underline font-semibold hover:text-white flex-shrink-0"
-              >
-                Send via Mail Client
-              </a>
-            </div>
-          )}
-
-          <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+            <h4 className="text-xl font-heading font-bold text-white">Transmission Successful</h4>
+            <p className="text-sm text-slate-300 max-w-md mx-auto font-sans leading-relaxed">
+              Thank you! Your message has been received. Saim will respond to your provided email address shortly.
+            </p>
             <button
-              type="submit"
-              disabled={status === 'submitting'}
-              className="w-full sm:flex-1 py-3 px-6 rounded-xl font-heading font-bold text-sm tracking-wide bg-[#00ff88] text-slate-950 hover:bg-[#00e5ff] hover:shadow-[0_0_20px_rgba(0,255,136,0.4)] transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={() => setStatus('idle')}
+              className="mt-4 px-5 py-2.5 rounded-xl text-xs font-mono font-medium border border-slate-700 bg-slate-800 text-slate-200 hover:text-white hover:border-[#00ff88] transition-colors"
             >
-              {status === 'submitting' ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Transmitting...</span>
-                </>
-              ) : (
-                <>
-                  <Send className="w-4 h-4" />
-                  <span>Send Message</span>
-                </>
-              )}
+              Send Another Message
             </button>
+          </motion.div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="name" className="block text-xs font-mono text-slate-300 mb-1.5">
+                  YOUR NAME *
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="e.g. John Doe"
+                  className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#00ff88] focus:ring-2 focus:ring-[#00ff88]/25 focus:shadow-[0_0_15px_rgba(0,255,136,0.2)] transition-all font-sans"
+                />
+              </div>
 
-            <a
-              href={mailtoLink}
-              className="w-full sm:w-auto py-3 px-4 rounded-xl text-xs font-mono font-medium border border-slate-700 bg-slate-800/80 text-slate-300 hover:text-white hover:border-[#00ff88]/40 transition-all flex items-center justify-center gap-2"
-              title="Open local email client fallback"
-            >
-              <Mail className="w-4 h-4 text-slate-400" />
-              <span>Mailto Fallback</span>
-            </a>
-          </div>
-        </form>
-      )}
+              <div>
+                <label htmlFor="email" className="block text-xs font-mono text-slate-300 mb-1.5">
+                  EMAIL ADDRESS *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="john@example.com"
+                  className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#00ff88] focus:ring-2 focus:ring-[#00ff88]/25 focus:shadow-[0_0_15px_rgba(0,255,136,0.2)] transition-all font-sans"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="subject" className="block text-xs font-mono text-slate-300 mb-1.5">
+                SUBJECT / TOPIC
+              </label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+                placeholder="Full-Stack Dev / WebSecureX / Amazon Seller Central"
+                className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#00ff88] focus:ring-2 focus:ring-[#00ff88]/25 focus:shadow-[0_0_15px_rgba(0,255,136,0.2)] transition-all font-sans"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="message" className="block text-xs font-mono text-slate-300 mb-1.5">
+                TRANSMISSION MESSAGE *
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows={4}
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Describe your inquiry, project scope, or opportunity..."
+                className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#00ff88] focus:ring-2 focus:ring-[#00ff88]/25 focus:shadow-[0_0_15px_rgba(0,255,136,0.2)] transition-all resize-none font-sans"
+              />
+            </div>
+
+            {status === 'error' && (
+              <div className="p-3.5 rounded-xl bg-red-950/40 border border-red-500/40 text-red-200 text-xs flex items-start gap-2.5">
+                <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-semibold block">{errorMessage}</span>
+                  <a
+                    href={`mailto:${portfolioData.personal.email}`}
+                    className="underline text-red-300 hover:text-white mt-1 inline-block"
+                  >
+                    Click here to open your email client directly
+                  </a>
+                </div>
+              </div>
+            )}
+
+            <MagneticButton className="w-full">
+              <button
+                type="submit"
+                disabled={status === 'submitting'}
+                className="w-full py-3.5 px-6 rounded-xl font-heading font-bold text-sm tracking-wide bg-[#00ff88] text-slate-950 hover:bg-[#00e5ff] hover:shadow-[0_0_30px_rgba(0,255,136,0.5)] transition-all duration-300 flex items-center justify-center gap-2 group/btn disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {status === 'submitting' ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Transmitting Data...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                    <span>Send Message</span>
+                  </>
+                )}
+              </button>
+            </MagneticButton>
+          </form>
+        )}
+      </div>
     </div>
   );
 }

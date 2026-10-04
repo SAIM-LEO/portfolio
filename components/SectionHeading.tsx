@@ -1,3 +1,8 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import TextScramble from './TextScramble';
+
 interface SectionHeadingProps {
   badge: string;
   title: string;
@@ -12,18 +17,22 @@ export default function SectionHeading({
   align = 'center',
 }: SectionHeadingProps) {
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className={`mb-12 md:mb-16 ${
         align === 'center' ? 'text-center max-w-3xl mx-auto' : 'text-left max-w-3xl'
       }`}
     >
       <div
-        className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono tracking-wider mb-4 border border-[#00ff88]/30 bg-[#00ff88]/5 text-[#00ff88] ${
+        className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono tracking-wider mb-4 border border-[#00ff88]/30 bg-[#00ff88]/5 text-[#00ff88] shadow-[0_0_15px_rgba(0,255,136,0.15)] ${
           align === 'center' ? 'mx-auto' : ''
         }`}
       >
-        <span className="w-1.5 h-1.5 rounded-full bg-[#00ff88] animate-pulse" />
-        {badge}
+        <span className="w-1.5 h-1.5 rounded-full bg-[#00ff88] radar-dot" />
+        <TextScramble text={badge} speed={25} />
       </div>
 
       <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold tracking-tight text-white dark:text-white light:text-slate-900 mb-4">
@@ -35,6 +44,6 @@ export default function SectionHeading({
           {subtitle}
         </p>
       )}
-    </div>
+    </motion.div>
   );
 }

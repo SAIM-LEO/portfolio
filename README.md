@@ -51,7 +51,11 @@ Portfolio/
 ├── data/
 │   └── portfolio.ts          # Central data source for the entire site
 ├── public/
-│   ├── profile.jpg           # Saim Nadeem profile photo
+│   ├── profile.webp          # Optimized WebP profile photo (max 800px)
+│   ├── profile.jpg           # High-quality JPEG fallback photo
+│   ├── og-image.jpg          # 1200x630 Open Graph & social card banner
+│   ├── favicon.ico           # Website favicon
+│   ├── icon.png              # High-res app icon
 │   ├── Saim_Nadeem_CV.pdf    # Downloadable resume
 │   └── projects/
 │       ├── websecurex-scanner.png   # WebSecureX Scanner Dashboard screenshot

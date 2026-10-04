@@ -2,6 +2,7 @@
 
 import SectionHeading from '@/components/SectionHeading';
 import TimelineItem from '@/components/TimelineItem';
+import CertificateCard from '@/components/CertificateCard';
 import { portfolioData } from '@/data/portfolio';
 import { GraduationCap, Award } from 'lucide-react';
 
@@ -10,14 +11,14 @@ export default function EducationSection() {
     <section id="education" className="py-20 relative scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          badge="// 05. ACADEMIC & PROFESSIONAL TRAINING"
+          badge="// 05. ACADEMIC & PROFESSIONAL CREDENTIALS"
           title="Education &amp; Credentials"
-          subtitle="Formal academic qualification in Information Technology along with verified industry-grade application development diplomas."
+          subtitle="Formal academic qualification in Information Technology along with verified industry certifications and professional application development diplomas."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          {/* Education Timeline (Left 7 cols) */}
-          <div className="lg:col-span-7">
+          {/* Education Timeline (Left 6 cols) */}
+          <div className="lg:col-span-6">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-9 h-9 rounded-xl bg-[#00ff88]/10 border border-[#00ff88]/30 flex items-center justify-center text-[#00ff88]">
                 <GraduationCap className="w-5 h-5" />
@@ -42,38 +43,20 @@ export default function EducationSection() {
             </div>
           </div>
 
-          {/* Professional Training & Certifications (Right 5 cols) */}
-          <div className="lg:col-span-5">
+          {/* Professional Training & Certifications (Right 6 cols) */}
+          <div className="lg:col-span-6">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-9 h-9 rounded-xl bg-[#00e5ff]/10 border border-[#00e5ff]/30 flex items-center justify-center text-[#00e5ff]">
                 <Award className="w-5 h-5" />
               </div>
               <h3 className="text-xl sm:text-2xl font-heading font-bold text-white">
-                Diplomas &amp; Training
+                Training &amp; Certifications
               </h3>
             </div>
 
-            <div className="space-y-4">
-              {portfolioData.training.map((item) => (
-                <div
-                  key={item.title}
-                  className="p-6 rounded-2xl glass-panel border-l-4 border-l-[#00e5ff] transition-all hover:translate-x-1"
-                >
-                  <span className="inline-block px-2.5 py-0.5 rounded text-[11px] font-mono bg-[#00e5ff]/10 text-[#00e5ff] border border-[#00e5ff]/30 mb-2">
-                    Professional Diploma
-                  </span>
-                  <h4 className="text-lg font-heading font-bold text-white mb-1">
-                    {item.title}
-                  </h4>
-                  <p className="text-sm font-semibold text-slate-300 mb-2">
-                    {item.institution}
-                  </p>
-                  {item.note && (
-                    <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed">
-                      {item.note}
-                    </p>
-                  )}
-                </div>
+            <div className="space-y-5">
+              {portfolioData.certifications.map((cert) => (
+                <CertificateCard key={cert.id} cert={cert} />
               ))}
 
               {/* Verified Status Banner */}

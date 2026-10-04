@@ -118,3 +118,57 @@ body {
 .radar-dot {
   animation: radar-pulse 2s infinite;
 }
+
+/* Noise Texture Overlay */
+.cyber-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+/* Shimmer Text Gradient */
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    #00ff88 0%,
+    #00e5ff 25%,
+    #ffffff 50%,
+    #00e5ff 75%,
+    #00ff88 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* Animated Gradient Border */
+.animated-gradient-border {
+  background: linear-gradient(
+    60deg,
+    rgba(0, 255, 136, 0.4),
+    rgba(0, 229, 255, 0.4),
+    rgba(0, 255, 136, 0.1),
+    rgba(0, 229, 255, 0.4)
+  );
+  background-size: 300% 300%;
+  animation: shimmer 6s ease alternate infinite;
+}
+
+/* Magnetic element cursor hint */
+@media (pointer: fine) {
+  .custom-cursor-active a,
+  .custom-cursor-active button,
+  .custom-cursor-active [role="button"] {
+    cursor: none !important;
+  }
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+

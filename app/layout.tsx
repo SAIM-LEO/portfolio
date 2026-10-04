@@ -51,23 +51,115 @@ export const metadata: Metadata = {
     siteName: 'Saim Nadeem Portfolio',
     images: [
       {
-        url: '/profile.jpg',
-        width: 800,
-        height: 1067,
-        alt: 'Saim Nadeem (Leo)',
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Saim Nadeem - Web Developer & Application Security Specialist',
+      },
+      {
+        url: '/profile.webp',
+        width: 666,
+        height: 800,
+        alt: 'Saim Nadeem, Web Developer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Saim Nadeem (Leo) | Web Developer & Application Security',
+    title: 'Saim Nadeem (Leo) | Web Developer & Application Security Specialist',
     description:
-      'Web Developer with an Application Security Focus | Amazon Seller Central Professional.',
-    images: ['/profile.jpg'],
+      'Web Developer with an Application Security Focus | NAVTTC Certified Amazon VA | Amazon Seller Central Professional.',
+    images: ['/og-image.jpg'],
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png' },
+    ],
+    apple: '/icon.png',
   },
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': 'https://saim-nadeem.vercel.app/#person',
+      name: 'Muhammad Saim Nadeem',
+      alternateName: 'Saim Nadeem (Leo)',
+      jobTitle: 'Web Developer & Application Security Specialist',
+      description:
+        'BS Information Technology graduate specializing in full-stack web development, application security assessment, and 4+ years of Amazon Seller Central operations.',
+      url: 'https://saim-nadeem.vercel.app',
+      image: 'https://saim-nadeem.vercel.app/profile.webp',
+      sameAs: ['https://github.com/SAIM-LEO'],
+      alumniOf: {
+        '@type': 'CollegeOrUniversity',
+        name: 'Govt. Islamia College Civil Lines, Lahore (University of the Punjab)',
+      },
+      hasCredential: [
+        {
+          '@type': 'EducationalOccupationalCredential',
+          '@id': 'https://saim-nadeem.vercel.app/#navttc-cert',
+          name: 'Amazon Virtual Assistant (Certificate of Successful Completion)',
+          credentialCategory: 'Certificate of Successful Completion',
+          educationalLevel: 'Grade A+',
+          dateCreated: '2025-07-24',
+          validFrom: '2025-07-24',
+          recognizedBy: {
+            '@type': 'GovernmentOrganization',
+            name: 'NAVTTC (National Vocational & Technical Training Commission), Government of Pakistan',
+          },
+          about: {
+            '@type': 'Course',
+            name: 'Amazon Virtual Assistant',
+            description: "Prime Minister's Youth Skills Development Program",
+            provider: {
+              '@type': 'EducationalOrganization',
+              name: "College of International Skills Development (CISD), Lahore, a PM's Special Initiative for Information Technology",
+            },
+            startDate: '2025-03-05',
+            endDate: '2025-06-04',
+          },
+        },
+        {
+          '@type': 'EducationalOccupationalCredential',
+          '@id': 'https://saim-nadeem.vercel.app/#intertech-diploma',
+          name: 'Web & Application Development Diploma',
+          credentialCategory: 'Professional Diploma',
+          recognizedBy: {
+            '@type': 'Organization',
+            name: 'INTERTECH',
+          },
+        },
+      ],
+    },
+    {
+      '@type': 'EducationalOccupationalCredential',
+      '@id': 'https://saim-nadeem.vercel.app/#navttc-cert',
+      name: 'Amazon Virtual Assistant (Certificate of Successful Completion)',
+      credentialCategory: 'Certificate of Successful Completion',
+      educationalLevel: 'Grade A+',
+      dateCreated: '2025-07-24',
+      validFrom: '2025-07-24',
+      recognizedBy: {
+        '@type': 'GovernmentOrganization',
+        name: 'NAVTTC (National Vocational & Technical Training Commission), Government of Pakistan',
+      },
+      about: {
+        '@type': 'Course',
+        name: 'Amazon Virtual Assistant',
+        description: "Prime Minister's Youth Skills Development Program",
+        provider: {
+          '@type': 'EducationalOrganization',
+          name: "College of International Skills Development (CISD), Lahore, a PM's Special Initiative for Information Technology",
+        },
+        startDate: '2025-03-05',
+        endDate: '2025-06-04',
+      },
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -78,6 +170,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `

@@ -10,6 +10,21 @@ export interface SecurityEngine {
   tag: string;
 }
 
+export interface CertificateItem {
+  id: string;
+  title: string;
+  credentialType: string;
+  awardedTo?: string;
+  grade?: string;
+  issuer: string;
+  program?: string;
+  institution: string;
+  duration?: string;
+  issueDate?: string;
+  accreditations?: string[];
+  note?: string;
+}
+
 export interface PortfolioData {
   personal: {
     name: string;
@@ -23,6 +38,9 @@ export interface PortfolioData {
     whatsappUrl: string;
     github: string;
     profilePhoto: string;
+    profilePhotoWebp?: string;
+    profilePhotoJpg?: string;
+    profilePhotoBlur?: string;
     cvUrl: string;
   };
   roles: string[];
@@ -38,6 +56,10 @@ export interface PortfolioData {
     badge?: string;
     roleType: string;
     description: string[];
+    trainingLink?: {
+      text: string;
+      href: string;
+    };
   }>;
   featuredProject: {
     title: string;
@@ -72,6 +94,7 @@ export interface PortfolioData {
     institution: string;
     note?: string;
   }>;
+  certifications: CertificateItem[];
   languages: Array<{
     name: string;
     level: string;
@@ -91,7 +114,11 @@ export const portfolioData: PortfolioData = {
     whatsappNumber: '+92 326 0098906',
     whatsappUrl: 'https://wa.me/923260098906',
     github: 'https://github.com/SAIM-LEO',
-    profilePhoto: '/profile.jpg',
+    profilePhoto: '/profile.webp',
+    profilePhotoWebp: '/profile.webp',
+    profilePhotoJpg: '/profile.jpg',
+    profilePhotoBlur:
+      'data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADQAQCdASoKAAwABUB8JYwAAl1//OH2AADOLmc3SyHYyL+pxXIDFpfCc4kFcV0JrgCVvBil70W9U44wOeJo8qnCAAA=',
     cvUrl: '/Saim_Nadeem_CV.pdf',
   },
   roles: [
@@ -127,6 +154,10 @@ export const portfolioData: PortfolioData = {
         'Currently managing 2 Seller Central accounts: one UK marketplace and one US marketplace.',
         'Maintained high standards for visual listing assets, account health, compliance, and multi-marketplace workflows.',
       ],
+      trainingLink: {
+        text: 'Formally trained through the NAVTTC Amazon Virtual Assistant program (Grade A+).',
+        href: '#certificate-navttc',
+      },
     },
     {
       title: 'Founder',
@@ -298,6 +329,30 @@ export const portfolioData: PortfolioData = {
   training: [
     {
       title: 'Web & Application Development Diploma',
+      institution: 'INTERTECH',
+      note: 'Comprehensive full-stack development and web architectures training.',
+    },
+  ],
+  certifications: [
+    {
+      id: 'certificate-navttc',
+      title: 'Amazon Virtual Assistant (Certificate of Successful Completion)',
+      credentialType: 'Government Certification',
+      awardedTo: 'Muhammad Saim Nadeem',
+      grade: 'Grade A+',
+      issuer: 'NAVTTC (National Vocational & Technical Training Commission), Government of Pakistan',
+      program: "Prime Minister's Youth Skills Development Program",
+      institution:
+        "College of International Skills Development (CISD), Lahore, a PM's Special Initiative for Information Technology",
+      duration: '05 Mar 2025 to 04 Jun 2025',
+      issueDate: '24 Jul 2025',
+      accreditations: ['UNEVOC Network', 'APACC', 'ISO'],
+    },
+    {
+      id: 'diploma-intertech',
+      title: 'Web & Application Development Diploma',
+      credentialType: 'Professional Diploma',
+      issuer: 'INTERTECH',
       institution: 'INTERTECH',
       note: 'Comprehensive full-stack development and web architectures training.',
     },

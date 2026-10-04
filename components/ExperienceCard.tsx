@@ -1,6 +1,5 @@
-'use client';
-
-import { Briefcase, Sparkles, CheckCircle2 } from 'lucide-react';
+import Link from 'next/link';
+import { Briefcase, Sparkles, CheckCircle2, Award, ArrowUpRight } from 'lucide-react';
 
 interface ExperienceCardProps {
   title: string;
@@ -9,6 +8,10 @@ interface ExperienceCardProps {
   badge?: string;
   roleType: string;
   description: string[];
+  trainingLink?: {
+    text: string;
+    href: string;
+  };
 }
 
 export default function ExperienceCard({
@@ -18,6 +21,7 @@ export default function ExperienceCard({
   badge,
   roleType,
   description,
+  trainingLink,
 }: ExperienceCardProps) {
   return (
     <div className="relative group p-6 sm:p-8 rounded-2xl glass-panel transition-all duration-300 hover:border-[#00e5ff]/50 hover:shadow-[0_12px_40px_rgba(0,229,255,0.12)] hover:-translate-y-1">
@@ -60,6 +64,21 @@ export default function ExperienceCard({
           </li>
         ))}
       </ul>
+
+      {trainingLink && (
+        <div className="mt-5 pt-4 border-t border-slate-800/80">
+          <Link
+            href={trainingLink.href}
+            className="group/link inline-flex items-center gap-2 text-xs sm:text-sm font-sans font-medium text-[#00ff88] hover:text-[#00e5ff] transition-colors"
+          >
+            <Award className="w-4 h-4 text-[#00ff88] flex-shrink-0 group-hover/link:scale-110 transition-transform" />
+            <span className="underline decoration-[#00ff88]/40 group-hover/link:decoration-[#00e5ff]">
+              {trainingLink.text}
+            </span>
+            <ArrowUpRight className="w-3.5 h-3.5 text-[#00ff88] flex-shrink-0 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
